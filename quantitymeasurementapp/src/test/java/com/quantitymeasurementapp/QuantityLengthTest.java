@@ -1,4 +1,4 @@
-package test.java;
+package test.java.com.quantitymeasurementapp;
 
 import main.java.com.quantitymeasurementapp.LengthUnit;
 import main.java.com.quantitymeasurementapp.QuantityLength;
