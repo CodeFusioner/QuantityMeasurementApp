@@ -27,9 +27,6 @@ public final class Quantity<U extends IMeasurable> {
 
     public Quantity<U> convertTo(U targetUnit) {
 
-        if (targetUnit == null)
-            throw new IllegalArgumentException("Target unit cannot be null");
-
         double base = unit.convertToBaseUnit(value);
 
         double converted = targetUnit.convertFromBaseUnit(base);
