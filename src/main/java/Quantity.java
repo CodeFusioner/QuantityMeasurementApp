@@ -25,12 +25,9 @@ public final class Quantity<U extends IMeasurable> {
     private enum ArithmeticOperation {
 
         ADD((a, b) -> a + b),
-
         SUBTRACT((a, b) -> a - b),
-
         DIVIDE((a, b) -> {
-            if (b == 0)
-                throw new ArithmeticException("Division by zero");
+            if (b == 0) throw new ArithmeticException("Division by zero");
             return a / b;
         });
 
@@ -45,23 +42,14 @@ public final class Quantity<U extends IMeasurable> {
         }
     }
 
-    private void validateArithmeticOperands(Quantity<U> other) {
+    private double performBaseArithmetic(
+            Quantity<U> other,
+            ArithmeticOperation operation) {
 
-        if (other == null)
-            throw new IllegalArgumentException("Operand cannot be null");
+        unit.validateOperationSupport(operation.name());
+        other.unit.validateOperationSupport(operation.name());
 
-        if (!this.unit.getClass().equals(other.unit.getClass()))
-            throw new IllegalArgumentException("Incompatible units");
-
-        if (!Double.isFinite(this.value) || !Double.isFinite(other.value))
-            throw new IllegalArgumentException("Invalid numeric values");
-    }
-
-    private double performBaseArithmetic(Quantity<U> other, ArithmeticOperation operation) {
-
-        validateArithmeticOperands(other);
-
-        double base1 = this.unit.convertToBaseUnit(this.value);
+        double base1 = unit.convertToBaseUnit(value);
         double base2 = other.unit.convertToBaseUnit(other.value);
 
         return operation.compute(base1, base2);
@@ -70,6 +58,7 @@ public final class Quantity<U extends IMeasurable> {
     public Quantity<U> convertTo(U targetUnit) {
 
         double base = unit.convertToBaseUnit(value);
+
         double result = targetUnit.convertFromBaseUnit(base);
 
         return new Quantity<>(result, targetUnit);
@@ -79,36 +68,14 @@ public final class Quantity<U extends IMeasurable> {
 
         double base = performBaseArithmetic(other, ArithmeticOperation.ADD);
 
-        double result = unit.convertFromBaseUnit(base);
-
-        return new Quantity<>(result, unit);
-    }
-
-    public Quantity<U> add(Quantity<U> other, U targetUnit) {
-
-        double base = performBaseArithmetic(other, ArithmeticOperation.ADD);
-
-        double result = targetUnit.convertFromBaseUnit(base);
-
-        return new Quantity<>(result, targetUnit);
+        return new Quantity<>(unit.convertFromBaseUnit(base), unit);
     }
 
     public Quantity<U> subtract(Quantity<U> other) {
 
         double base = performBaseArithmetic(other, ArithmeticOperation.SUBTRACT);
 
-        double result = unit.convertFromBaseUnit(base);
-
-        return new Quantity<>(result, unit);
-    }
-
-    public Quantity<U> subtract(Quantity<U> other, U targetUnit) {
-
-        double base = performBaseArithmetic(other, ArithmeticOperation.SUBTRACT);
-
-        double result = targetUnit.convertFromBaseUnit(base);
-
-        return new Quantity<>(result, targetUnit);
+        return new Quantity<>(unit.convertFromBaseUnit(base), unit);
     }
 
     public double divide(Quantity<U> other) {
@@ -136,10 +103,5 @@ public final class Quantity<U extends IMeasurable> {
     @Override
     public int hashCode() {
         return Objects.hash(unit.convertToBaseUnit(value));
-    }
-
-    @Override
-    public String toString() {
-        return "Quantity(" + value + ", " + unit.getUnitName() + ")";
     }
 }
