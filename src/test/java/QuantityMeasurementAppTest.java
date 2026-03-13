@@ -1,5 +1,6 @@
-package test.java;
 
+import main.java.org.example.LengthUnit;
+import main.java.org.example.QuantityLength;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
