@@ -3,7 +3,6 @@ package main.java.org.example;
 import java.util.Objects;
 
 public final class Quantity<U extends IMeasurable> {
-
     private static final double EPSILON = 1e-6;
 
     private final double value;
@@ -17,7 +16,6 @@ public final class Quantity<U extends IMeasurable> {
         this.unit = Objects.requireNonNull(unit, "Unit cannot be null");
         this.value = value;
     }
-
     public double getValue() {
         return value;
     }
