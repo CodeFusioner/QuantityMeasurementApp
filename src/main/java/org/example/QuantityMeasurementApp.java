@@ -3,9 +3,7 @@ package main.java.org.example;
 import java.util.Objects;
 
 public class QuantityMeasurementApp {
-
     public static class Feet {
-
         private final double value;
 
         public Feet(double value) {
