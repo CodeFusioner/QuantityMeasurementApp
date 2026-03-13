@@ -1,28 +1,27 @@
-package org.example;
+package main.java.org.example;
 
 public class QuantityMeasurementApp {
 
     public static void main(String[] args) {
 
-        Quantity<TemperatureUnit> t1 =
-                new Quantity<>(0.0, TemperatureUnit.CELSIUS);
+        Quantity<VolumeUnit> v1 =
+                new Quantity<>(1.0, VolumeUnit.LITRE);
 
-        Quantity<TemperatureUnit> t2 =
-                new Quantity<>(32.0, TemperatureUnit.FAHRENHEIT);
+        Quantity<VolumeUnit> v2 =
+                new Quantity<>(1000.0, VolumeUnit.MILLILITRE);
 
-        System.out.println(t1.equals(t2));
+        Quantity<VolumeUnit> v3 =
+                new Quantity<>(1.0, VolumeUnit.GALLON);
 
-        System.out.println(
-                t1.convertTo(TemperatureUnit.FAHRENHEIT));
+        System.out.println("Equality:");
+        System.out.println(v1.equals(v2));
 
-        try {
+        System.out.println("\nConversion:");
+        System.out.println(v1.convertTo(VolumeUnit.MILLILITRE));
+        System.out.println(v3.convertTo(VolumeUnit.LITRE));
 
-            t1.add(new Quantity<>(50.0, TemperatureUnit.CELSIUS));
-
-        } catch (UnsupportedOperationException e) {
-
-            System.out.println(e.getMessage());
-
-        }
+        System.out.println("\nAddition:");
+        System.out.println(v1.add(v2));
+        System.out.println(v1.add(v3, VolumeUnit.LITRE));
     }
 }

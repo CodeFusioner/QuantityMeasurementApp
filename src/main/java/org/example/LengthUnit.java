@@ -1,30 +1,34 @@
-package org.example;
+package main.java.org.example;
 
 public enum LengthUnit implements IMeasurable {
 
     FEET(1.0),
     INCHES(1.0 / 12.0),
     YARDS(3.0),
-    CENTIMETERS(1.0 / 30.48);
+    CENTIMETERS(0.393701 / 12.0);
 
-    private final double factor;
+    private final double conversionFactor;
 
-    LengthUnit(double factor) {
-        this.factor = factor;
+    LengthUnit(double conversionFactor) {
+        this.conversionFactor = conversionFactor;
     }
 
+    @Override
     public double getConversionFactor() {
-        return factor;
+        return conversionFactor;
     }
 
+    @Override
     public double convertToBaseUnit(double value) {
-        return value * factor;
+        return value * conversionFactor;
     }
 
+    @Override
     public double convertFromBaseUnit(double baseValue) {
-        return baseValue / factor;
+        return baseValue / conversionFactor;
     }
 
+    @Override
     public String getUnitName() {
         return name();
     }

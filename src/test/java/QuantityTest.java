@@ -1,51 +1,89 @@
-import org.example.LengthUnit;
-import org.example.Quantity;
-import org.example.WeightUnit;
-import org.junit.jupiter.api.Test;
+import main.java.org.example.LengthUnit;
+import main.java.org.example.Quantity;
+import main.java.org.example.WeightUnit;
+import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 
-class QuantityTest {
+public class QuantityTest {
+
+    private static final double EPS = 1e-6;
 
     @Test
-    void testAdd() {
+    public void testLengthEquality() {
+
+        Quantity<LengthUnit> a =
+                new Quantity<>(1, LengthUnit.FEET);
+
+        Quantity<LengthUnit> b =
+                new Quantity<>(12, LengthUnit.INCHES);
+
+        assertTrue(a.equals(b));
+    }
+
+    @Test
+    public void testWeightEquality() {
+
+        Quantity<WeightUnit> a =
+                new Quantity<>(1, WeightUnit.KILOGRAM);
+
+        Quantity<WeightUnit> b =
+                new Quantity<>(1000, WeightUnit.GRAM);
+
+        assertTrue(a.equals(b));
+    }
+
+    @Test
+    public void testLengthConversion() {
+
+        Quantity<LengthUnit> q =
+                new Quantity<>(1, LengthUnit.FEET);
 
         Quantity<LengthUnit> result =
-                new Quantity<>(1, LengthUnit.FEET)
-                        .add(new Quantity<>(12, LengthUnit.INCHES));
+                q.convertTo(LengthUnit.INCHES);
 
-        assertEquals(new Quantity<>(2, LengthUnit.FEET), result);
+        assertEquals(12.0, result.getValue(), EPS);
     }
 
     @Test
-    void testSubtract() {
+    public void testWeightConversion() {
+
+        Quantity<WeightUnit> q =
+                new Quantity<>(1, WeightUnit.KILOGRAM);
+
+        Quantity<WeightUnit> result =
+                q.convertTo(WeightUnit.GRAM);
+
+        assertEquals(1000.0, result.getValue(), EPS);
+    }
+
+    @Test
+    public void testLengthAddition() {
+
+        Quantity<LengthUnit> a =
+                new Quantity<>(1, LengthUnit.FEET);
+
+        Quantity<LengthUnit> b =
+                new Quantity<>(12, LengthUnit.INCHES);
 
         Quantity<LengthUnit> result =
-                new Quantity<>(10, LengthUnit.FEET)
-                        .subtract(new Quantity<>(6, LengthUnit.INCHES));
+                a.add(b, LengthUnit.FEET);
 
-        assertEquals(new Quantity<>(9.5, LengthUnit.FEET), result);
+        assertEquals(2.0, result.getValue(), EPS);
     }
 
     @Test
-    void testDivide() {
+    public void testWeightAddition() {
 
-        double result =
-                new Quantity<>(10, LengthUnit.FEET)
-                        .divide(new Quantity<>(2, LengthUnit.FEET));
+        Quantity<WeightUnit> a =
+                new Quantity<>(1, WeightUnit.KILOGRAM);
 
-        assertEquals(5.0, result);
+        Quantity<WeightUnit> b =
+                new Quantity<>(1000, WeightUnit.GRAM);
+
+        Quantity<WeightUnit> result =
+                a.add(b, WeightUnit.KILOGRAM);
+
+        assertEquals(2.0, result.getValue(), EPS);
     }
-
-    @Test
-    void testCrossCategory() {
-
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> new Quantity<>(10, LengthUnit.FEET)
-                        .add(new Quantity<WeightUnit>(5, WeightUnit.KILOGRAM))
-        );
-    }
-
 }

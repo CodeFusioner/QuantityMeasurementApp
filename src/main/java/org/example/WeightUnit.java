@@ -1,4 +1,4 @@
-package org.example;
+package main.java.org.example;
 
 public enum WeightUnit implements IMeasurable {
 
@@ -6,24 +6,28 @@ public enum WeightUnit implements IMeasurable {
     GRAM(0.001),
     POUND(0.453592);
 
-    private final double factor;
+    private final double conversionFactor;
 
-    WeightUnit(double factor) {
-        this.factor = factor;
+    WeightUnit(double conversionFactor) {
+        this.conversionFactor = conversionFactor;
     }
 
+    @Override
     public double getConversionFactor() {
-        return factor;
+        return conversionFactor;
     }
 
+    @Override
     public double convertToBaseUnit(double value) {
-        return value * factor;
+        return value * conversionFactor;
     }
 
+    @Override
     public double convertFromBaseUnit(double baseValue) {
-        return baseValue / factor;
+        return baseValue / conversionFactor;
     }
 
+    @Override
     public String getUnitName() {
         return name();
     }

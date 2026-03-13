@@ -1,12 +1,21 @@
-package org.example;
+package main.java.org.example;
+
+@FunctionalInterface
+interface SupportsArithmetic {
+    boolean isSupported();
+}
 
 public interface IMeasurable {
 
     double getConversionFactor();
+
     double convertToBaseUnit(double value);
+
     double convertFromBaseUnit(double baseValue);
+
     String getUnitName();
 
+    // default arithmetic support
     SupportsArithmetic supportsArithmetic = () -> true;
 
     default boolean supportsArithmetic() {
@@ -14,8 +23,6 @@ public interface IMeasurable {
     }
 
     default void validateOperationSupport(String operation) {
-        if (!supportsArithmetic())
-            throw new UnsupportedOperationException(
-                    getUnitName() + " does not support " + operation);
+        // default → all operations allowed
     }
 }
