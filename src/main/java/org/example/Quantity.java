@@ -1,4 +1,4 @@
-package main.java;
+package org.example;
 
 import java.util.Objects;
 import java.util.function.DoubleBinaryOperator;

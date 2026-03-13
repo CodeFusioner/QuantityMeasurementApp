@@ -1,6 +1,9 @@
-package test.java;
-
+import org.example.LengthUnit;
+import org.example.Quantity;
+import org.example.WeightUnit;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 
 class QuantityTest {
@@ -41,7 +44,7 @@ class QuantityTest {
         assertThrows(
                 IllegalArgumentException.class,
                 () -> new Quantity<>(10, LengthUnit.FEET)
-                        .add(new Quantity<>(5, WeightUnit.KILOGRAM))
+                        .add(new Quantity<WeightUnit>(5, WeightUnit.KILOGRAM))
         );
     }
 

@@ -1,4 +1,4 @@
-package main.java;
+package org.example;
 
 public enum WeightUnit implements IMeasurable {
 
