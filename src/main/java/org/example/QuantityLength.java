@@ -1,4 +1,4 @@
-package main.java;
+package main.java.org.example;
 
 
 import java.util.Objects;
