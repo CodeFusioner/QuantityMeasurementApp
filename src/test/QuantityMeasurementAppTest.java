@@ -1,13 +1,11 @@
 package test;
-
-import main.java.QuantityMeasurementApp;
+import main.java.org.example.QuantityMeasurementApp;
 import org.junit.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class QuantityMeasurementAppTest {
-
 
     @Test
     public void testFeetEquality_SameValue() {
