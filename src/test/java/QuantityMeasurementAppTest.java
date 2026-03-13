@@ -1,4 +1,3 @@
-package test;
 import main.java.org.example.QuantityMeasurementApp;
 import org.junit.Test;
 
