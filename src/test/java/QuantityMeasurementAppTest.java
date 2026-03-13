@@ -1,5 +1,3 @@
-package test;
-
 import main.java.org.example.QuantityMeasurementApp;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
