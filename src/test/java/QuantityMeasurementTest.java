@@ -2,10 +2,8 @@ import main.java.org.example.LengthUnit;
 import main.java.org.example.Quantity;
 import main.java.org.example.VolumeUnit;
 import main.java.org.example.WeightUnit;
-import org.junit.Test;
-
+import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-
 
 public class QuantityMeasurementTest {
 
@@ -14,8 +12,8 @@ public class QuantityMeasurementTest {
     // SUBTRACTION TESTS
 
     @Test
-    public void testSubtraction_SameUnit_FeetMinusFeet(){
-        Quantity<LengthUnit> a=new Quantity<>(10.0,LengthUnit.FEET);
+    void testSubtraction_SameUnit_FeetMinusFeet(){
+        Quantity<LengthUnit>a=new Quantity<>(10.0,LengthUnit.FEET);
         Quantity<LengthUnit>b=new Quantity<>(5.0,LengthUnit.FEET);
 
         Quantity<LengthUnit>result=a.subtract(b);
@@ -24,7 +22,7 @@ public class QuantityMeasurementTest {
     }
 
     @Test
-    public void testSubtraction_SameUnit_LitreMinusLitre(){
+    void testSubtraction_SameUnit_LitreMinusLitre(){
         Quantity<VolumeUnit>a=new Quantity<>(10.0,VolumeUnit.LITRE);
         Quantity<VolumeUnit>b=new Quantity<>(3.0,VolumeUnit.LITRE);
 
@@ -34,7 +32,7 @@ public class QuantityMeasurementTest {
     }
 
     @Test
-    public void testSubtraction_CrossUnit_FeetMinusInches(){
+    void testSubtraction_CrossUnit_FeetMinusInches(){
         Quantity<LengthUnit>a=new Quantity<>(10.0,LengthUnit.FEET);
         Quantity<LengthUnit>b=new Quantity<>(6.0,LengthUnit.INCHES);
 
@@ -44,7 +42,7 @@ public class QuantityMeasurementTest {
     }
 
     @Test
-    public void testSubtraction_CrossUnit_InchesMinusFeet(){
+    void testSubtraction_CrossUnit_InchesMinusFeet(){
         Quantity<LengthUnit>a=new Quantity<>(120.0,LengthUnit.INCHES);
         Quantity<LengthUnit>b=new Quantity<>(5.0,LengthUnit.FEET);
 
@@ -54,7 +52,7 @@ public class QuantityMeasurementTest {
     }
 
     @Test
-    public void testSubtraction_ExplicitTargetUnit_Feet(){
+    void testSubtraction_ExplicitTargetUnit_Feet(){
         Quantity<LengthUnit>a=new Quantity<>(10.0,LengthUnit.FEET);
         Quantity<LengthUnit>b=new Quantity<>(6.0,LengthUnit.INCHES);
 
@@ -64,7 +62,7 @@ public class QuantityMeasurementTest {
     }
 
     @Test
-    public void testSubtraction_ExplicitTargetUnit_Inches(){
+    void testSubtraction_ExplicitTargetUnit_Inches(){
         Quantity<LengthUnit>a=new Quantity<>(10.0,LengthUnit.FEET);
         Quantity<LengthUnit>b=new Quantity<>(6.0,LengthUnit.INCHES);
 
@@ -74,7 +72,7 @@ public class QuantityMeasurementTest {
     }
 
     @Test
-    public void testSubtraction_ExplicitTargetUnit_Millilitre(){
+    void testSubtraction_ExplicitTargetUnit_Millilitre(){
         Quantity<VolumeUnit>a=new Quantity<>(5.0,VolumeUnit.LITRE);
         Quantity<VolumeUnit>b=new Quantity<>(2.0,VolumeUnit.LITRE);
 
@@ -84,7 +82,7 @@ public class QuantityMeasurementTest {
     }
 
     @Test
-    public void testSubtraction_ResultingInNegative(){
+    void testSubtraction_ResultingInNegative(){
         Quantity<LengthUnit>a=new Quantity<>(5.0,LengthUnit.FEET);
         Quantity<LengthUnit>b=new Quantity<>(10.0,LengthUnit.FEET);
 
@@ -94,7 +92,7 @@ public class QuantityMeasurementTest {
     }
 
     @Test
-    public void testSubtraction_ResultingInZero(){
+    void testSubtraction_ResultingInZero(){
         Quantity<LengthUnit>a=new Quantity<>(10.0,LengthUnit.FEET);
         Quantity<LengthUnit>b=new Quantity<>(120.0,LengthUnit.INCHES);
 
@@ -104,7 +102,7 @@ public class QuantityMeasurementTest {
     }
 
     @Test
-    public void testSubtraction_WithZeroOperand(){
+    void testSubtraction_WithZeroOperand(){
         Quantity<LengthUnit>a=new Quantity<>(5.0,LengthUnit.FEET);
         Quantity<LengthUnit>b=new Quantity<>(0.0,LengthUnit.INCHES);
 
@@ -114,7 +112,7 @@ public class QuantityMeasurementTest {
     }
 
     @Test
-    public void testSubtraction_WithNegativeValues(){
+    void testSubtraction_WithNegativeValues(){
         Quantity<LengthUnit>a=new Quantity<>(5.0,LengthUnit.FEET);
         Quantity<LengthUnit>b=new Quantity<>(-2.0,LengthUnit.FEET);
 
@@ -124,7 +122,7 @@ public class QuantityMeasurementTest {
     }
 
     @Test
-    public void testSubtraction_NonCommutative(){
+    void testSubtraction_NonCommutative(){
         Quantity<LengthUnit>a=new Quantity<>(10.0,LengthUnit.FEET);
         Quantity<LengthUnit>b=new Quantity<>(5.0,LengthUnit.FEET);
 
@@ -135,7 +133,7 @@ public class QuantityMeasurementTest {
     }
 
     @Test
-    public void testSubtraction_WithLargeValues(){
+    void testSubtraction_WithLargeValues(){
         Quantity<WeightUnit>a=new Quantity<>(1e6,WeightUnit.KILOGRAM);
         Quantity<WeightUnit>b=new Quantity<>(5e5,WeightUnit.KILOGRAM);
 
@@ -145,14 +143,14 @@ public class QuantityMeasurementTest {
     }
 
     @Test
-    public void testSubtraction_NullOperand(){
+    void testSubtraction_NullOperand(){
         Quantity<LengthUnit>a=new Quantity<>(10.0,LengthUnit.FEET);
 
         assertThrows(IllegalArgumentException.class,()->a.subtract(null));
     }
 
     @Test
-    public void testSubtraction_NullTargetUnit(){
+    void testSubtraction_NullTargetUnit(){
         Quantity<LengthUnit>a=new Quantity<>(10.0,LengthUnit.FEET);
         Quantity<LengthUnit>b=new Quantity<>(5.0,LengthUnit.FEET);
 
@@ -162,7 +160,7 @@ public class QuantityMeasurementTest {
     // DIVISION TESTS
 
     @Test
-    public void testDivision_SameUnit_FeetDividedByFeet(){
+    void testDivision_SameUnit_FeetDividedByFeet(){
         Quantity<LengthUnit>a=new Quantity<>(10.0,LengthUnit.FEET);
         Quantity<LengthUnit>b=new Quantity<>(2.0,LengthUnit.FEET);
 
@@ -170,7 +168,7 @@ public class QuantityMeasurementTest {
     }
 
     @Test
-    public void testDivision_SameUnit_LitreDividedByLitre(){
+    void testDivision_SameUnit_LitreDividedByLitre(){
         Quantity<VolumeUnit>a=new Quantity<>(10.0,VolumeUnit.LITRE);
         Quantity<VolumeUnit>b=new Quantity<>(5.0,VolumeUnit.LITRE);
 
@@ -178,7 +176,7 @@ public class QuantityMeasurementTest {
     }
 
     @Test
-    public void testDivision_CrossUnit_FeetDividedByInches(){
+    void testDivision_CrossUnit_FeetDividedByInches(){
         Quantity<LengthUnit>a=new Quantity<>(24.0,LengthUnit.INCHES);
         Quantity<LengthUnit>b=new Quantity<>(2.0,LengthUnit.FEET);
 
@@ -186,7 +184,7 @@ public class QuantityMeasurementTest {
     }
 
     @Test
-    public void testDivision_CrossUnit_KilogramDividedByGram(){
+    void testDivision_CrossUnit_KilogramDividedByGram(){
         Quantity<WeightUnit>a=new Quantity<>(2.0,WeightUnit.KILOGRAM);
         Quantity<WeightUnit>b=new Quantity<>(2000.0,WeightUnit.GRAM);
 
@@ -194,7 +192,7 @@ public class QuantityMeasurementTest {
     }
 
     @Test
-    public void testDivision_RatioGreaterThanOne(){
+    void testDivision_RatioGreaterThanOne(){
         Quantity<LengthUnit>a=new Quantity<>(10.0,LengthUnit.FEET);
         Quantity<LengthUnit>b=new Quantity<>(2.0,LengthUnit.FEET);
 
@@ -202,7 +200,7 @@ public class QuantityMeasurementTest {
     }
 
     @Test
-    public void testDivision_RatioLessThanOne(){
+    void testDivision_RatioLessThanOne(){
         Quantity<LengthUnit>a=new Quantity<>(5.0,LengthUnit.FEET);
         Quantity<LengthUnit>b=new Quantity<>(10.0,LengthUnit.FEET);
 
@@ -210,7 +208,7 @@ public class QuantityMeasurementTest {
     }
 
     @Test
-    public void testDivision_RatioEqualToOne(){
+    void testDivision_RatioEqualToOne(){
         Quantity<LengthUnit>a=new Quantity<>(10.0,LengthUnit.FEET);
         Quantity<LengthUnit>b=new Quantity<>(10.0,LengthUnit.FEET);
 
@@ -218,7 +216,7 @@ public class QuantityMeasurementTest {
     }
 
     @Test
-    public void testDivision_NonCommutative(){
+    void testDivision_NonCommutative(){
         Quantity<LengthUnit>a=new Quantity<>(10.0,LengthUnit.FEET);
         Quantity<LengthUnit>b=new Quantity<>(5.0,LengthUnit.FEET);
 
@@ -226,7 +224,7 @@ public class QuantityMeasurementTest {
     }
 
     @Test
-    public void testDivision_ByZero(){
+    void testDivision_ByZero(){
         Quantity<LengthUnit>a=new Quantity<>(10.0,LengthUnit.FEET);
         Quantity<LengthUnit>b=new Quantity<>(0.0,LengthUnit.FEET);
 
@@ -234,7 +232,7 @@ public class QuantityMeasurementTest {
     }
 
     @Test
-    public void testDivision_WithLargeRatio(){
+    void testDivision_WithLargeRatio(){
         Quantity<WeightUnit>a=new Quantity<>(1e6,WeightUnit.KILOGRAM);
         Quantity<WeightUnit>b=new Quantity<>(1.0,WeightUnit.KILOGRAM);
 
@@ -242,7 +240,7 @@ public class QuantityMeasurementTest {
     }
 
     @Test
-    public void testDivision_WithSmallRatio(){
+    void testDivision_WithSmallRatio(){
         Quantity<WeightUnit>a=new Quantity<>(1.0,WeightUnit.KILOGRAM);
         Quantity<WeightUnit>b=new Quantity<>(1e6,WeightUnit.KILOGRAM);
 
@@ -250,10 +248,9 @@ public class QuantityMeasurementTest {
     }
 
     @Test
-    public void testDivision_NullOperand(){
+    void testDivision_NullOperand(){
         Quantity<LengthUnit>a=new Quantity<>(10.0,LengthUnit.FEET);
 
         assertThrows(IllegalArgumentException.class,()->a.divide(null));
     }
-
 }
