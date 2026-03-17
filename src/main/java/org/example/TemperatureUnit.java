@@ -1,58 +1,82 @@
 package main.java.org.example;
-
+import java.util.function.Function;
 public enum TemperatureUnit implements IMeasurable {
 
-    CELSIUS {
-        public double convertToBaseUnit(double value) {
-            return value;
-        }
-
-        public double convertFromBaseUnit(double baseValue) {
-            return baseValue;
-        }
-    },
-
-    FAHRENHEIT {
-        public double convertToBaseUnit(double value) {
-            return (value - 32) * 5 / 9;
-        }
-
-        public double convertFromBaseUnit(double baseValue) {
-            return (baseValue * 9 / 5) + 32;
-        }
-    },
-
-    KELVIN {
-        public double convertToBaseUnit(double value) {
-            return value - 273.15;
-        }
-
-        public double convertFromBaseUnit(double baseValue) {
-            return baseValue + 273.15;
-        }
-    };
-
-    private static final SupportsArithmetic supportsArithmetic = () -> false;
+    CELSIUS,
+    FAHRENHEIT,
+    KELVIN;
 
     @Override
-    public boolean supportsArithmetic() {
-        return supportsArithmetic.isSupported();
+    public double getConversionFactor(){
+        return 1;
     }
 
     @Override
-    public void validateOperationSupport(String operation) {
-        throw new UnsupportedOperationException(
-                "Temperature does not support arithmetic operation: " + operation
-        );
+    public double convertToBaseUnit(double value){
+
+        switch(this){
+            case CELSIUS:
+                return value;
+
+            case FAHRENHEIT:
+                return (value-32)*5/9;
+
+            case KELVIN:
+                return value-273.15;
+
+            default:
+                throw new IllegalArgumentException("Unknown temperature unit");
+        }
     }
 
     @Override
-    public double getConversionFactor() {
-        return 1.0;
+    public double convertFromBaseUnit(double baseValue){
+
+        switch(this){
+            case CELSIUS:
+                return baseValue;
+
+            case FAHRENHEIT:
+                return baseValue*9/5+32;
+
+            case KELVIN:
+                return baseValue+273.15;
+
+            default:
+                throw new IllegalArgumentException("Unknown temperature unit");
+        }
     }
 
     @Override
-    public String getUnitName() {
+    public String getUnitName(){
         return this.name();
+    }
+
+    // Temperature does not support arithmetic
+
+    @Override
+    public boolean supportsAddition(){
+        return false;
+    }
+
+    @Override
+    public boolean supportsSubtraction(){
+        return false;
+    }
+
+    @Override
+    public boolean supportsDivision(){
+        return false;
+    }
+
+    @Override
+    public void validateOperationSupport(String operation){
+        throw new UnsupportedOperationException(
+                "Temperature does not support "+operation+" operation");
+    }
+
+    @Override
+    public String getMeasurementType() {
+        return "Temperature";
     }
 }

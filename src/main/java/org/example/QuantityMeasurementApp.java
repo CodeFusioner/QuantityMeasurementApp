@@ -1,27 +1,35 @@
 package main.java.org.example;
 
+import main.java.org.example.controller.QuantityMeasurementController;
+import main.java.org.example.dto.QuantityDTO;
+import main.java.org.example.repository.QuantityMeasurementCacheRepository;
+import main.java.org.example.service.QuantityMeasurementServiceImpl;
+
+import java.util.Objects;
+
 public class QuantityMeasurementApp {
 
     public static void main(String[] args) {
 
-        Quantity<VolumeUnit> v1 =
-                new Quantity<>(1.0, VolumeUnit.LITRE);
+        // initialize repository
+        QuantityMeasurementCacheRepository repository =
+                QuantityMeasurementCacheRepository.getInstance();
 
-        Quantity<VolumeUnit> v2 =
-                new Quantity<>(1000.0, VolumeUnit.MILLILITRE);
+        // initialize service
+        QuantityMeasurementServiceImpl service =
+                new QuantityMeasurementServiceImpl(repository);
 
-        Quantity<VolumeUnit> v3 =
-                new Quantity<>(1.0, VolumeUnit.GALLON);
+        // initialize controller
+        QuantityMeasurementController controller =
+                new QuantityMeasurementController(service);
 
-        System.out.println("Equality:");
-        System.out.println(v1.equals(v2));
+        // example quantities
+        QuantityDTO q1 = new QuantityDTO(10, "FEET", "Length");
+        QuantityDTO q2 = new QuantityDTO(6, "INCHES", "Length");
 
-        System.out.println("\nConversion:");
-        System.out.println(v1.convertTo(VolumeUnit.MILLILITRE));
-        System.out.println(v3.convertTo(VolumeUnit.LITRE));
+        // call controller
+        QuantityDTO result = controller.performAddition(q1, q2);
 
-        System.out.println("\nAddition:");
-        System.out.println(v1.add(v2));
-        System.out.println(v1.add(v3, VolumeUnit.LITRE));
+        System.out.println("Addition result: " + result);
     }
 }
