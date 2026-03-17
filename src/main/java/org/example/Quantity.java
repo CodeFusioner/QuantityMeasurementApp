@@ -1,6 +1,4 @@
 package main.java.org.example;
-import java.util.function.DoubleBinaryOperator;
-import java.util.Objects;
 
 public class Quantity<U extends IMeasurable>{
 
