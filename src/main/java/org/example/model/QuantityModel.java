@@ -1,6 +1,6 @@
-package main.java.org.example.model;
+package org.example.model;
 
-import main.java.org.example.IMeasurable;
+import com.quantitymeasurement.units.IMeasurable;
 
 public class QuantityModel<U extends IMeasurable> {
 
@@ -18,10 +18,5 @@ public class QuantityModel<U extends IMeasurable> {
 
     public U getUnit() {
         return unit;
-    }
-
-    @Override
-    public String toString() {
-        return value + " " + unit;
     }
 }
